@@ -5,6 +5,9 @@ const ip = require('ip');
 const path = require('path');
 const request = require('request');
 const log4js = require('log4js');
+const config = require('./conf/config');
+const MountRoutes = require('./routes/index');
+
 log4js.configure({
   appenders: { server: { type: 'file', filename: './logs/access.log' } },
   categories: { default: { appenders: ['server'], level: 'info' } }
@@ -12,21 +15,7 @@ log4js.configure({
 const logger = log4js.getLogger('server');
 app.use(express.static(path.join(__dirname, 'logs')));
 
-app.get('/health', (req, res) => {
-  res.send('hi');
-});
-
-app.get('/test', (req, res) => {
-  request('http://google.com', {},(err, response, body) => {
-    if (err) {
-      logger.error(err);
-      res.send(err);
-    }
-    if (body) {
-      res.send(body);
-    }
-  })
-});
+MountRoutes(app);
 
 app.get('/api/sys-info', (req, res) => {
   let result = {ip: ip.address(), port: PORT};
