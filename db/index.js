@@ -8,8 +8,8 @@
 const { Pool } = require('pg');
 const config = require('../conf/config');
 const pool = new Pool({
-  //connectionString: config.postgresUrlLocal
-  connectionString: config.postgresUrlProd
+  connectionString: config.postgresUrlLocal
+  // connectionString: config.postgresUrlProd
 });
 
 module.exports = {
