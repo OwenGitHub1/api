@@ -10,7 +10,8 @@ const Schema = require('validate');
 
 const CountDayRecord = new Schema({
   id: {
-    type: Number,
+    type: String,
+    length: { min: 1, max: 64 },
     required: false
   },
   eventName: {

@@ -11,6 +11,8 @@ const router = new Router();
 const Interface = require('../interface/countDay');
 const Errors = require('../util/error');
 const CountDay = require('../models/CountDay.js');
+const Util = require('../util/util');
+const Entities = require('../util/Entites.js');
 
 // table has been created not allowed to created
 
@@ -47,9 +49,14 @@ router.post('/add', async (req, res) => {
    if (errors.length) {
      res.send(Errors.paramError(errors[0].message));
    }
+   // check eventName
+   const nameCheck = await CountDay.findAll({where: {eventName: params.eventName}});
+   if (nameCheck.length) {
+     res.send(Errors.nameExists(params.eventName));
+   }
    let date = new Date();
    const result = await CountDay.create({
-     id:Date.now(),
+     id: Util.generateID(Entities.COUNT_DAY),
      event_name: params.eventName,
      event_time: params.eventTime,
      uid: params.uid,
@@ -77,7 +84,22 @@ router.post('/edit', async (req, res) =>{
   if (errors.length) {
     res.send(Errors.paramError(errors[0].message));
   }
+  // check eventName
+  const nameCheck = await CountDay.findAll({where: {eventName: params.eventName}});
+  if (nameCheck.length && nameCheck[0].eventName !== params.eventName) {
+    res.send(Errors.nameExists(params.eventName));
+  }
+  const result = await CountDay.update({
+    event_name:params.eventName,
+    event_time:params.eventTime,
+    uid:params.uid,
+    updated: Date.now(),
+  },{
+    where: {
+      id: params.id
+    }
+  });
+  res.send(Errors.serverOK());
 });
-
 
 module.exports = router;

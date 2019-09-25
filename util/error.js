@@ -19,5 +19,9 @@ module.exports = {
 
   paramError(desc) {
     return genRes(1001, 'invalid param', desc);
+  },
+
+  nameExists(desc){
+    return genRes(1002, 'name has been exist', desc);
   }
 };
