@@ -7,8 +7,12 @@
  */
 const home = require('./home');
 const countDay = require('./countDay');
+const account = require('./account.js');
+const job = require('./job.js');
 
 module.exports = app => {
   app.use('/', home);
   app.use('/api/count-day', countDay);
+  app.use('/api/account', account);
+  app.use('/api/job', job);
 };

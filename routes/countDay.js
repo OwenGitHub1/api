@@ -8,7 +8,7 @@
 const Router = require('express-promise-router');
 const db = require('../db');
 const router = new Router();
-const Interface = require('../interface/countDay');
+const CountDayInterface = require('../interface/countDay');
 const Errors = require('../util/error');
 const CountDay = require('../models/CountDay.js');
 const Util = require('../util/util');
@@ -45,7 +45,7 @@ router.post('/list', async (req, res) => {
  */
 router.post('/add', async (req, res) => {
    const params = req.body;
-   const errors = Interface.CountDayRecord.validate(params);
+   const errors = CountDayInterface.validate(params);
    if (errors.length) {
      res.send(Errors.paramError(errors[0].message));
    }
@@ -80,7 +80,7 @@ router.post('/remove', async (req, res) => {
 
 router.post('/edit', async (req, res) =>{
   const params = req.body;
-  const errors = Interface.CountDayRecord.validate(params);
+  const errors = CountDayInterface.validate(params);
   if (errors.length) {
     res.send(Errors.paramError(errors[0].message));
   }

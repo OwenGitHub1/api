@@ -5,11 +5,8 @@
  * Time:
  * Desc:
  */
-const genRes = function(code,msg,des){
-  if (des === undefined) {
-    des = '';
-  }
-  return {code,msg,des};
+const genRes = function(code,msg,data = ''){
+  return {code,msg,data};
 };
 
 module.exports = {

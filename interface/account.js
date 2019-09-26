@@ -10,17 +10,17 @@ const Schema = require('validate');
 const AccountRecord = new Schema({
   uid: {
     type: String,
-    required: true,
+    required: false,
     length: { min: 1, max: 64 }
   },
   name: {
     type: String,
-    required: true,
+    required: false,
     length: { min: 1, max: 255 }
   },
   email: {
     type: String,
-    required: true,
+    required: false,
     length: { min: 1, max: 255 }
   },
   wechat: {
@@ -49,4 +49,4 @@ const AccountRecord = new Schema({
   },
 });
 
-module.exports = {AccountRecord};
+module.exports = AccountRecord;

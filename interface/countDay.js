@@ -29,4 +29,4 @@ const CountDayRecord = new Schema({
   }
 });
 
-module.exports = {CountDayRecord};
+module.exports = CountDayRecord;

@@ -7,46 +7,47 @@
  */
 const Sequelize = require('sequelize');
 const sequelize = require('../conf/dbConf.js');
-const Account = sequelize.define('account', {
+const Job = sequelize.define('job', {
   id: {
     type: Sequelize.STRING,
     primaryKey: true,
+    autoIncrement: true,
     allowNull: false
   },
-  name: {
-    type: Sequelize.STRING(255),
+  title: {
+    type: Sequelize.STRING,
     defaultValue: '',
     allowNull: false
   },
-  email: {
-    type: Sequelize.STRING(255),
-    defaultValue: '',
-    allowNull: true
-  },
-  wechat: {
-    type: Sequelize.STRING(255),
-    defaultValue: '',
-    allowNull: true
-  },
-  tel: {
-    type: Sequelize.STRING(15),
-    defaultValue: '',
-    allowNull: true
-  },
-  gender: {
+  content: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
-    allowNull: true
+    allowNull: false
   },
-  address: {
-    type: Sequelize.STRING(255),
+  requirement: {
+    type: Sequelize.STRING,
     defaultValue: '',
     allowNull: true
   },
-  pwd: {
-    type: Sequelize.STRING(255),
-    defaultValue: '',
-    allowNull: true
+  contact: {
+    type: Sequelize.STRING,
+    defaultValue: 0,
+    allowNull: false
+  },
+  creator: {
+    type: Sequelize.STRING,
+    defaultValue: 0,
+    allowNull: false
+  },
+  price: {
+    type: Sequelize.STRING,
+    defaultValue: 0,
+    allowNull: true,
+  },
+  source: {
+    type: Sequelize.STRING,
+    defaultValue: 0,
+    allowNull: true,
   },
   created: {
     type: Sequelize.DATE(),
@@ -59,7 +60,7 @@ const Account = sequelize.define('account', {
     allowNull: false
   }
 }, {
-  tableName: 'account',
+  tableName: 'job',
   timestamps: false,
 });
-module.exports = Account;
+module.exports = Job;

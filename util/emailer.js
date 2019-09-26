@@ -15,7 +15,7 @@ const transporter = Mailer.createTransport({
   port: 25,
   auth: {
     user: 'weiyong@youxin.com',
-    pass: 'WYmm524785774!'
+    pass: 'WYmm524785774+'
   },
   tls: {
     rejectUnauthorized: false,
@@ -28,6 +28,6 @@ module.exports = {
 
   },
   async sendVerificationEmail(address, code) {
-    await transporter.sendMail(new Mail('',address,'',code,''));
+    return await transporter.sendMail(new Mail('weiyong@youxin.com',address,'注册验证码',code,''));
   }
 };
