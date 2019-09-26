@@ -13,8 +13,8 @@ const genRes = function(code,msg,des){
 };
 
 module.exports = {
-  serverOK() {
-    return genRes(0, 'Success');
+  serverOK(data) {
+    return genRes(0, 'Success', data);
   },
 
   paramError(desc) {

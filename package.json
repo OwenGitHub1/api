@@ -10,6 +10,7 @@
     "express-promise-router": "^3.0.3",
     "ip": "^1.1.5",
     "log4js": "^5.0.0",
+    "nodemailer": "^6.3.0",
     "pg": "^7.12.1",
     "request": "^2.88.0",
     "sequelize": "^5.18.4",
