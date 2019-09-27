@@ -5,11 +5,10 @@
  * Time:
  * Desc:
  */
-const Sequelize = require('sequelize');
-const sequelize = require('../conf/dbConf.js');
+const {Sequelize, sequelize} = require('../db/sequelize');
 const Account = sequelize.define('account', {
   id: {
-    type: Sequelize.STRING,
+    type: Sequelize.STRING(64),
     primaryKey: true,
     allowNull: false
   },

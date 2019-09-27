@@ -6,27 +6,12 @@
  * Desc:
  */
 const Router = require('express-promise-router');
-const db = require('../db');
 const router = new Router();
 const CountDayInterface = require('../interface/countDay');
 const Errors = require('../util/error');
 const CountDay = require('../models/CountDay.js');
 const Util = require('../util/util');
 const Entities = require('../util/Entites.js');
-
-// table has been created not allowed to created
-
-//router.get('/table', async (req, res) => {
-//  const {result} = await db.query('CREATE TABLE "public"."count_day" (\n' +
-//    '  "id" int8 NOT NULL,\n' +
-//    '  "event_name" varchar(255) NOT NULL,\n' +
-//    '  "event_time" varchar(255) NOT NULL,\n' +
-//    '  "uid" int8 NOT NULL,\n' +
-//    '  "created" date NOT NULL,\n' +
-//    '  "updated" date NOT NULL\n' +
-//    ')');
-//  res.send(result);
-//});
 
 /**
  * 查询倒数日记录

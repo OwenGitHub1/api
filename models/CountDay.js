@@ -5,13 +5,11 @@
  * Time:
  * Desc:
  */
-const Sequelize = require('sequelize');
-const sequelize = require('../conf/dbConf.js');
+const {Sequelize, sequelize} = require('../db/sequelize');
 const CountDay = sequelize.define('count_day', {
   id: {
     type: Sequelize.STRING,
     primaryKey: true,
-    autoIncrement: true,
     allowNull: false
   },
   event_name: {

@@ -5,13 +5,11 @@
  * Time:
  * Desc:
  */
-const Sequelize = require('sequelize');
-const sequelize = require('../conf/dbConf.js');
+const {Sequelize, sequelize} = require('../db/sequelize');
 const Job = sequelize.define('job', {
   id: {
     type: Sequelize.STRING,
     primaryKey: true,
-    autoIncrement: true,
     allowNull: false
   },
   title: {

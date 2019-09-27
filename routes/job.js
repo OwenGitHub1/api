@@ -30,7 +30,7 @@ router.post('/add', async (req, res) => {
     res.send(Errors.nameExists(params.title));
     return
   }
-  let date = new Date();
+  let date = Date.now();
   const result = await Job.create({
     id: Util.generateID(Entities.JOB),
     title: params.title,
@@ -47,8 +47,29 @@ router.post('/add', async (req, res) => {
 });
 
 /**
- * 查询记录
+ * 查询Job记录
  */
+router.post('/list', async (req, res) =>{
+  const params = req.body;
+  const pageSize = params.pageSize || 10;
+  const page = params.page || 1;
+
+  const result = await Job.findAll({limit: pageSize,
+    offset: pageSize * (page - 1)});
+  res.send(Errors.serverOK(result));
+});
+
+/**
+ * 删除Job记录
+ */
+router.post('/remove', async (req, res) => {
+  const params = req.body;
+  if (!params.id) {
+    res.send(Errors.paramError(`record id error: ${params.id}`));
+  }
+  const result = await Job.destroy({where: {id: params.id}});
+  res.send(Errors.serverOK());
+});
 
 
 module.exports = router;
