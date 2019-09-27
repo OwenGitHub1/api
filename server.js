@@ -8,6 +8,7 @@ const log4js = require('log4js');
 const config = require('./conf/config');
 const MountRoutes = require('./routes/index');
 const logger = log4js.getLogger('server');
+const CROS = require('./middleware/cros');
 
 log4js.configure({
   appenders: { server: { type: 'file', filename: './logs/access.log' } },
@@ -16,6 +17,7 @@ log4js.configure({
 
 app.use(express.static(path.join(__dirname, 'logs')));
 app.use(express.json());
+app.use(CROS);
 MountRoutes(app);
 
 app.get('/api/sys-info', (req, res) => {

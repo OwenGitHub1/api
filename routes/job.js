@@ -71,5 +71,4 @@ router.post('/remove', async (req, res) => {
   res.send(Errors.serverOK());
 });
 
-
 module.exports = router;
