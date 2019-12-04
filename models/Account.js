@@ -7,20 +7,29 @@
  */
 const {Sequelize, sequelize} = require('../db/sequelize');
 const Account = sequelize.define('account', {
+  // user id
   id: {
     type: Sequelize.STRING(64),
     primaryKey: true,
     allowNull: false
   },
+  // user name
   name: {
     type: Sequelize.STRING(255),
     defaultValue: '',
     allowNull: false
   },
+  // 注册站点或APP
+  platform: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+    allowNull: false
+  },
+  // email address
   email: {
     type: Sequelize.STRING(255),
     defaultValue: '',
-    allowNull: true
+    allowNull: false
   },
   wechat: {
     type: Sequelize.STRING(255),

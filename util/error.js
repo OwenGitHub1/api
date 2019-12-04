@@ -20,5 +20,10 @@ module.exports = {
 
   nameExists(desc){
     return genRes(1002, 'name has been exist', desc);
+  },
+
+  accountExist(desc){
+    return genRes(1003, 'account has been register', desc);
   }
+
 };
