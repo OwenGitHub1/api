@@ -7,9 +7,9 @@
  */
 const util = require('../util/util.js');
 class AccountInfo {
-  constructor(name,email,password,platform){
+  constructor(id, name, email, password, platform) {
     const now = new Date();
-    this.id = util.generateID('u');
+    this.id = id;
     this.name = name || Date.now().toString();
     this.email = email;
     this.password = util.encrypt(password);

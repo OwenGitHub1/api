@@ -12,16 +12,27 @@ const Mailer = require('../util/emailer.js');
 const AccountService = require('../service/accountService');
 const bodyValidator = require('../util/validtor');
 const addAccountRule = require('../class/requestBodyRule/addAccountRequest.js');
+const loginRequestRule = require('../class/requestBodyRule/loginRequest.js');
 
 const router = new Router();
 
-router.post('/add', async (req, res) => {
+router.post('/register', async (req, res) => {
   const params = req.body;
   const errors = bodyValidator(addAccountRule, params);
   if (errors) {
     res.send(Errors.paramError(errors));
   } else {
     res.send(await AccountService.register(params));
+  }
+});
+
+router.post('/login', async (req, res) => {
+  const params = req.body;
+  const errors = bodyValidator(loginRequestRule, params);
+  if (errors) {
+    res.send(Errors.paramError(errors));
+  } else {
+    res.send(await AccountService.login(params));
   }
 });
 

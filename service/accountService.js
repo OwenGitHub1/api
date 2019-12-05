@@ -10,6 +10,7 @@ const Account = require('../models/Account.js');
 const Errors = require('../util/error.js');
 const PlatformEnum = require('../enums/PlatformEnum');
 const AccountInfo = require('../class/AccountInfo');
+const util = require('../util/util.js');
 module.exports = {
   async register(params){
     const { platform, email, name, password } = params;
@@ -17,9 +18,24 @@ module.exports = {
     if (checkExist) {
       return Errors.accountExist();
     }
-    const account = new AccountInfo(name, email, password, platform);
+    const id = await util.generateUserID();
+    const account = new AccountInfo(id.toString(), name, email, password, platform);
     await Account.create(account);
     return Errors.serverOK();
+  },
+
+  async login(params) {
+    const { platform, email, password } = params;
+    const hashPassword = util.encrypt(password);
+    // 查询用户
+    const result = await Account.findAll({where: {email,platform, password:hashPassword}});
+    if (result.length === 1) {
+      // 生成session
+
+      return Errors.serverOK({session: ''});
+    } else {
+      return Errors.loginError();
+    }
   },
 
   async checkAccountExist(email, platform){

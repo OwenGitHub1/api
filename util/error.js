@@ -24,6 +24,10 @@ module.exports = {
 
   accountExist(desc){
     return genRes(1003, 'account has been register', desc);
+  },
+
+  loginError(desc) {
+    return genRes(1004, 'email or password error', desc);
   }
 
 };

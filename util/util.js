@@ -8,10 +8,17 @@
 'use strict';
 const { SHA3 } = require('sha3');
 const hash = new SHA3(256);
+const Account = require('../models/Account.js');
 
 module.exports = {
+  // 生成常规记录ID
   generateID(recordType = ''){
     return `${recordType}${Date.now().toString(36)}-${Math.floor(Math.random() * 1000000).toString(16)}`;
+  },
+  // 生成用户ID
+  async generateUserID() {
+    const data = await Account.findAndCountAll();
+    return data.count + 1;
   },
   generateRandomString(){
     const strList = ['0','1','2','3','4','5','6','7','8','9'];
