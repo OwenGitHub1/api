@@ -5,8 +5,9 @@
  * Time:
  * Desc:
  */
-
-
+'use strict';
+const { SHA3 } = require('sha3');
+const hash = new SHA3(256);
 
 module.exports = {
   generateID(recordType = ''){
@@ -18,5 +19,15 @@ module.exports = {
     return result.replace(/%s/g, (x)=>{
       return strList[Math.floor(Math.random() * 10)]
     })
+  },
+  encrypt(content){
+    if (!content) {
+      return '';
+    }
+    if (typeof content !== 'string') {
+      throw new Error(`param type error: ${content}`);
+    }
+    hash.update(content);
+    return hash.digest('hex');
   }
 };

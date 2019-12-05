@@ -51,7 +51,7 @@ const Account = sequelize.define('account', {
     defaultValue: '',
     allowNull: true
   },
-  pwd: {
+  password: {
     type: Sequelize.STRING(255),
     defaultValue: '',
     allowNull: true
