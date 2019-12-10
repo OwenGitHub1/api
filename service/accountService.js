@@ -7,10 +7,13 @@
  */
 'use strict';
 const Account = require('../models/Account.js');
+const Session = require('../models/Session.js');
 const Errors = require('../util/error.js');
 const PlatformEnum = require('../enums/PlatformEnum');
 const AccountInfo = require('../class/AccountInfo');
+const SessionInfo = require('../class/SeesionInfo.js');
 const util = require('../util/util.js');
+
 module.exports = {
   async register(params){
     const { platform, email, name, password } = params;
@@ -31,8 +34,8 @@ module.exports = {
     const result = await Account.findAll({where: {email,platform, password:hashPassword}});
     if (result.length === 1) {
       // 生成session
-
-      return Errors.serverOK({session: ''});
+      await this.refreshSession(result[0].id);
+      return Errors.serverOK(await this.refreshSession(result[0].id));
     } else {
       return Errors.loginError();
     }
@@ -44,5 +47,16 @@ module.exports = {
     }
     const result = await Account.findAll({where: {email,platform}});
     return result.length > 0;
+  },
+
+  async refreshSession(uid){
+    const sessionCheckResult = await Session.findAll({where: {uid}});
+    const sessionInfo = new SessionInfo(uid);
+    if (sessionCheckResult.length === 0) {
+      await Session.create(sessionInfo);
+    } else {
+      await Session.update({session:sessionInfo.session, created: sessionInfo.created, expires: sessionInfo.expired},{where: {uid}});
+    }
+    return Errors.serverOK({session: sessionInfo.session});
   }
 };

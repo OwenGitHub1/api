@@ -13,7 +13,7 @@ const Account = require('../models/Account.js');
 module.exports = {
   // 生成常规记录ID
   generateID(recordType = ''){
-    return `${recordType}${Date.now().toString(36)}-${Math.floor(Math.random() * 1000000).toString(16)}`;
+    return `${recordType}${Date.now().toString(36)}${Math.floor(Math.random() * 1000000).toString(16)}`;
   },
   // 生成用户ID
   async generateUserID() {
@@ -36,5 +36,9 @@ module.exports = {
     }
     hash.update(content);
     return hash.digest('hex');
+  },
+  generateSession(uid){
+    const content = `${uid}${Date.now()}`;
+    return `ss-${this.encrypt(content)}`;
   }
 };

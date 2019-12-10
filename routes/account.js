@@ -36,6 +36,14 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/logout', async (req, res) => {
+
+});
+
+router.post('/list', async (req, res) => {
+
+});
+
 router.post('/send-verify-code', async (req, res) => {
   const verifyCode = Util.generateRandomString();
   await Mailer.sendVerificationEmail('weiyong@youxin.com',verifyCode);
