@@ -15,6 +15,7 @@ log4js.configure({
   categories: { default: { appenders: ['server'], level: 'info' } }
 });
 
+app.use( express.static('public'));
 app.use('/static', express.static('logs'));
 app.use(express.json());
 app.use(CROS);

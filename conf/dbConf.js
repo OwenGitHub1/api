@@ -6,7 +6,7 @@
  * Desc:
  */
 const Sequelize = require('sequelize');
-const conf = require('./config')[process.env.NODE_ENV || 'dev'];
+const conf = require('./config')[process.env.NODE_ENV || 'development'];
 const isLogging = process.env.NODE_ENV === 'development';
 const sequelize = new Sequelize(conf.postgresUrl, {
   dialect: 'postgres',

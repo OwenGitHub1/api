@@ -2,7 +2,7 @@
   "name": "node-on-unubo-cloud",
   "version": "1.0.1",
   "scripts": {
-    "start": "node server.js",
+    "start": "set NODE_ENV=production & node server.js",
     "dev": "supervisor node server.js"
   },
   "dependencies": {
