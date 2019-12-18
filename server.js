@@ -15,14 +15,9 @@ log4js.configure({
   categories: { default: { appenders: ['server'], level: 'info' } }
 });
 
-app.use(express.static(path.join(__dirname, 'logs')));
+app.use('/static', express.static('logs'));
 app.use(express.json());
 app.use(CROS);
 MountRoutes(app);
-
-app.get('/api/sys-info', (req, res) => {
-  let result = {ip: ip.address(), port: PORT};
-  res.send(JSON.stringify(result));
-});
 
 app.listen(PORT, () => console.log(`> Ready on http://localhost:${PORT}`));

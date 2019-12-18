@@ -27,7 +27,7 @@ router.post('/init', async (req, res) =>{
       res.send(Errors.serverOK('init db ok'));
     })
     .catch(err => {
-      res.send(JSON.stringify(err));
+      res.send(JSON.stringify(err.message));
       console.log('init db error', err)
     })
 });
