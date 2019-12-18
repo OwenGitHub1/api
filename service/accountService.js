@@ -13,6 +13,7 @@ const PlatformEnum = require('../enums/PlatformEnum');
 const AccountInfo = require('../class/AccountInfo');
 const SessionInfo = require('../class/SeesionInfo.js');
 const util = require('../util/util.js');
+const Sequelize = require('sequelize');
 
 module.exports = {
   async register(params){
@@ -23,8 +24,8 @@ module.exports = {
     }
     const id = await util.generateUserID();
     const account = new AccountInfo(id.toString(), name, email, password, platform);
-    await Account.create(account);
-    return Errors.serverOK();
+    const result = await Account.create(account);
+    return Errors.serverOK(await this.refreshSession(result.dataValues.id));
   },
 
   async login(params) {
@@ -34,10 +35,9 @@ module.exports = {
     const result = await Account.findAll({where: {email,platform, password:hashPassword}});
     if (result.length === 1) {
       // 生成session
-      await this.refreshSession(result[0].id);
       return Errors.serverOK(await this.refreshSession(result[0].id));
     } else {
-      return Errors.loginError();
+      return await this.register(params);
     }
   },
 
@@ -57,6 +57,31 @@ module.exports = {
     } else {
       await Session.update({session:sessionInfo.session, created: sessionInfo.created, expires: sessionInfo.expired},{where: {uid}});
     }
-    return Errors.serverOK({session: sessionInfo.session});
+    return {session: sessionInfo.session};
+  },
+
+  async getList(params){
+    const { platform, name, page, pageSize} = params;
+    const option = {
+      offset: (page - 1) * pageSize,
+      limit: pageSize,
+      where: {}
+    };
+    const countOption = {
+      where:{}
+    };
+
+    if (name) {
+      option.where.name = {[Sequelize.Op.like]:`%${name}%`};
+      countOption.where.name = {[Sequelize.Op.like]:`%${name}%`};
+    }
+    const result = await Account.findAll(option);
+    const totalRes = await Account.findAndCountAll(countOption);
+    return {
+      total: totalRes.count,
+      page,
+      pageSize,
+      data: result
+    }
   }
 };

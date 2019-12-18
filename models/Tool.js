@@ -37,6 +37,11 @@ const Tool = sequelize.define('tool', {
     defaultValue: '',
     allowNull: false
   },
+  icon: {
+    type: Sequelize.STRING(255),
+    defaultValue: '',
+    allowNull: false
+  },
   tag: {
     type: Sequelize.STRING(255),
     defaultValue: '',

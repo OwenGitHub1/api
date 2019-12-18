@@ -13,6 +13,7 @@ const AccountService = require('../service/accountService');
 const bodyValidator = require('../util/validtor');
 const addAccountRule = require('../class/requestBodyRule/addAccountRequest.js');
 const loginRequestRule = require('../class/requestBodyRule/loginRequest.js');
+const queryAccountRule = require('../class/requestBodyRule/queryAccountRequest.js');
 
 const router = new Router();
 
@@ -41,7 +42,13 @@ router.post('/logout', async (req, res) => {
 });
 
 router.post('/list', async (req, res) => {
-
+  const params = req.body;
+  const errors = bodyValidator(queryAccountRule, params);
+  if (errors) {
+    res.send(Errors.paramError(errors));
+  } else {
+    res.send(await AccountService.getList(params));
+  }
 });
 
 router.post('/send-verify-code', async (req, res) => {

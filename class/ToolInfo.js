@@ -7,13 +7,14 @@
  */
 const util = require('../util/util.js');
 class ToolInfo {
-  constructor(name, desc, site, link, tag = '', category = '') {
+  constructor(name, desc, site, link, icon = '', tag = '', category = '') {
     const now = new Date();
     this.id = util.generateID('t');
     this.name = name;
     this.desc = desc;
     this.site = site;
     this.link = link;
+    this.icon = icon;
     this.like = 0;
     this.saved = 0;
     this.tag = tag;
