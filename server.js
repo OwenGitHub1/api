@@ -21,4 +21,6 @@ app.use(express.json());
 app.use(CROS);
 MountRoutes(app);
 
+logger.info(`server running on port ${PORT} ip: ${ip.address()} env: ${process.env.NODE_ENV}`);
+
 app.listen(PORT, () => console.log(`> Ready on http://localhost:${PORT}`));
