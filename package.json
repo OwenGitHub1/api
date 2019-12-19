@@ -6,6 +6,7 @@
     "dev": "supervisor node server.js"
   },
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "express": "^4.16.4",
     "express-promise-router": "^3.0.3",
     "i18n": "^0.8.4",

@@ -23,12 +23,10 @@ router.post('/init', async (req, res) =>{
   sequelize
     .sync()
     .then(() => {
-      console.log('init db ok');
       res.send(Errors.serverOK('init db ok'));
     })
     .catch(err => {
       res.send(JSON.stringify(err.message));
-      console.log('init db error', err)
     })
 });
 

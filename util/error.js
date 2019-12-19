@@ -28,6 +28,10 @@ module.exports = {
 
   loginError(desc) {
     return genRes(1004, 'email or password error', desc);
+  },
+
+  noPermisson(desc) {
+    return genRes(1005, 'no permission', desc);
   }
 
 };
